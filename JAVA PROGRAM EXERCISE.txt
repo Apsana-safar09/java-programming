@@ -97,3 +97,30 @@ public class main {
     }
 }
 
+#  STRING PROGRAM
+COUNT VOWEL:
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine().toLowerCase(); 
+        scanner.close();
+
+        char[] vowels = {'a', 'e', 'i', 'o', 'u'};
+        int countVowels = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            for (char vowel : vowels) {
+                if (currentChar == vowel) {
+                    countVowels++;
+                    break;
+                }
+            }
+        }
+
+        System.out.println("Number of vowels: " + countVowels);
+    }
+}

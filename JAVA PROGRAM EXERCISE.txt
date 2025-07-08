@@ -1,0 +1,99 @@
+FINDING MAXIMUM NUMBER OF AN ARRAY:
+class main {
+    public static void main(String[]args){
+        int[]array = {44,55,65,76,87,98,30,25};
+        int max = array[0];
+        for(int i = 1; i<array.length; i++){
+            if(array[i]>max){
+                max =  array[i];
+            }
+        }
+        System.out.println("Maximum:" + max);
+    }
+}
+
+
+
+
+COUNTING THE EVEN NUMBERS OF AN ARRAY:
+ public class main {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int evenCount = 0;
+        for (int num : numbers) {
+            if (num % 2 == 0) {
+                evenCount++;
+            }
+        }
+        
+        System.out.println("Number of even numbers: " + evenCount);
+    }
+
+
+
+REVERSING AN ARRAY:
+public class main {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] reversed = new int[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+            reversed[arr.length - 1 - i] = arr[i];
+        }
+        System.out.println("Reversed array:");
+        for(int num : reversed) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+
+
+
+CHECKING PALINDROME:
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 3, 2, 1}; 
+        int[] reversed = new int[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+            reversed[arr.length - 1 - i] = arr[i];
+        }
+        
+        boolean isPalindrome = true;
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] != reversed[i]) {
+                isPalindrome = false;
+                break;
+            }
+        }
+    
+        System.out.println("Original array:");
+        printArray(arr);
+        
+        System.out.println("\nReversed array:");
+        printArray(reversed);
+        
+        System.out.println("\n\nIs palindrome? " + isPalindrome);
+    }
+    
+    public static void printArray(int[] array) {
+        for(int num : array) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+
+
+FIND SECOND LARGEST:
+import java.util.Arrays;
+
+public class main {
+    public static void main(String[] args) {
+        int[] arr = {12, 35, 1, 10, 34, 1};
+        Arrays.sort(arr);
+        int n = arr.length;
+        int secondLargest = arr[n-2]; // Second last element
+        System.out.println("Second largest: " + secondLargest);
+    }
+}
+

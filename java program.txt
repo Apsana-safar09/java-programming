@@ -1,0 +1,240 @@
+CREATING A SIMPLE NODE, CLASS USING LINKEDLIST DATA STRUCTIURE:
+
+public class Main {
+    public static void main(String[] args) {
+        class Node {
+            int data;
+            Node next;
+
+            Node(int data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        // Example usage
+        Node head = new Node(10);
+        System.out.println("Data: " + head.data);
+    }
+}
+
+
+#linkedlist
+
+public class Main {
+
+    // Node class
+    static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // LinkedList class
+    static class LinkedList {
+        Node head;
+        Node tail;
+
+        LinkedList() {
+            head = null;
+            tail = null;
+        }
+
+        // Insert at the end
+        void insertAtEnd(int data) {
+            Node newNode = new Node(data);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }  // <-- this closing brace was missing!
+
+        // Display the list
+        void display() {
+            Node temp = head;
+            while (temp != null) {
+                System.out.print(temp.data + " -> ");
+                temp = temp.next;
+            }
+            System.out.println("null");
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+
+        System.out.println("Linked List:");
+        list.display();
+    }
+}
+
+
+DELETE AT GIVEN INDEX:
+public class Main {
+    static class Node {
+        int data;
+        Node next;
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    static class LinkedList {
+        Node head;
+        void insertAtEnd(int data) {
+            Node newNode = new Node(data);
+            if (head == null) {
+                head = newNode;
+                return;
+            }
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        void deleteAtIndex(int index) {
+            if (head == null) {
+                System.out.println("List is empty.");
+                return;
+            }
+            if (index == 0) {
+                head = head.next;
+                return;
+            }
+
+            Node current = head;
+            for (int i = 0; i < index - 1; i++) {
+                if (current.next == null) {
+                    System.out.println("Index out of bounds.");
+                    return;
+                }
+                current = current.next;
+            }
+
+            if (current.next == null) {
+                System.out.println("Index out of bounds.");
+                return;
+            }
+
+            current.next = current.next.next;
+        }
+
+        // Display the list
+        void display() {
+            Node temp = head;
+            while (temp != null) {
+                System.out.print(temp.data + " -> ");
+                temp = temp.next;
+            }
+            System.out.println("null");
+        }
+    }
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+
+        System.out.println("Original List:");
+        list.display();
+
+        list.deleteAtIndex(3);  
+
+        System.out.println("After Deleting at index 3:");
+        list.display();
+    }
+}
+
+
+PRINT ALTERNATE NODES:
+public class Main {
+
+    // Node class
+    static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // LinkedList class
+    static class LinkedList {
+        Node head;
+
+        // Insert at the end
+        void insertAtEnd(int data) {
+            Node newNode = new Node(data);
+            if (head == null) {
+                head = newNode;
+                return;
+            }
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+
+        // Print alternate nodes (0, 2, 4, ...)
+        void printAlternateNodes() {
+            Node temp = head;
+            boolean print = true;
+
+            while (temp != null) {
+                if (print) {
+                    System.out.print(temp.data + " ");
+                }
+                print = !print;  // Toggle
+                temp = temp.next;
+            }
+            System.out.println();
+        }
+
+        // Display full list (optional)
+        void display() {
+            Node temp = head;
+            while (temp != null) {
+                System.out.print(temp.data + " -> ");
+                temp = temp.next;
+            }
+            System.out.println("null");
+        }
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtEnd(40);
+        list.insertAtEnd(50);
+
+        System.out.println("Full List:");
+        list.display();
+
+        System.out.println("Alternate Nodes:");
+        list.printAlternateNodes();  // Should print: 10 30 50
+    }
+}
+
+
+

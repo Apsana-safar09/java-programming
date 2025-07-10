@@ -287,6 +287,63 @@ public class Main {
         System.out.println("list1 == list3? " + compareLinkedLists(list1, list3)); // false
         System.out.println("list2 == list3? " + compareLinkedLists(list2, list3)); // false
     }
+
+
+# MERGING LINKEDLIST
+public class MergeSortedLists {
+
+    // Node class defined as static inner class
+    static class Node {
+        int data;
+        Node next;
+        Node(int d) {
+            data = d;
+            next = null;
+        }
+    }
+
+    static Node mergeLists(Node l1, Node l2) {
+        Node dummy = new Node(0);
+        Node tail = dummy;
+
+        while (l1 != null && l2 != null) {
+            if (l1.data <= l2.data) {
+                tail.next = l1;
+                l1 = l1.next;
+            } else {
+                tail.next = l2;
+                l2 = l2.next;
+            }
+            tail = tail.next;
+        }
+
+        tail.next = (l1 != null) ? l1 : l2;
+
+        return dummy.next;
+    }
+
+    static void printList(Node head) {
+        while (head != null) {
+            System.out.print(head.data + " -> ");
+            head = head.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        Node l1 = new Node(1);
+        l1.next = new Node(3);
+        l1.next.next = new Node(5);
+
+        Node l2 = new Node(2);
+        l2.next = new Node(4);
+        l2.next.next = new Node(6);
+
+        Node merged = mergeLists(l1, l2);
+        printList(merged);
+    }
+}
+
 }
 
 

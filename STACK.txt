@@ -1,0 +1,77 @@
+# STACK
+import java.util.Stack;
+public class StackExample {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        System.out.println("Stack: " + stack);
+        System.out.println("Top element: " + stack.peek());
+        stack.pop();
+        System.out.println("After pop: " + stack);
+    }
+}
+
+# REVERSING A STRING USING STACK:
+import java.util.Stack;
+public class ReverseStringUsingStack {
+    public static void main(String[] args) {
+        String input = "Apsana";
+        String reversed = reverseString(input);
+        System.out.println("Original: " + input);
+        System.out.println("Reversed: " + reversed);
+    }
+    public static String reverseString(String str) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : str.toCharArray()) {
+            stack.push(c);
+        }
+        StringBuilder reversed = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversed.append(stack.pop());
+        }
+        return reversed.toString();
+    }
+}
+
+# REVERSING A STRING USING STRINGBUILDER:
+public class ReverseStringWithBuilder {
+    public static void main(String[] args) {
+        String original = "Apsana";
+        StringBuilder sb = new StringBuilder(original);
+        sb.reverse();
+        String reversed = sb.toString();
+        System.out.println("Original String: " + original);
+        System.out.println("Reversed String: " + reversed);
+    }
+}
+
+# PARENTHESES / BRACKET VALIDATOR:
+public class ParenthesesValidator {
+    public static boolean isValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char ch : s.toCharArray()) {
+            if (ch == '{') {
+                stack.push('}');
+            } else if (ch == '[') {
+                stack.push(']');
+            } else if (ch == '(') {
+                stack.push(')');
+            } else {
+                if (stack.isEmpty() || stack.pop() != ch) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+    public static void main(String[] args) {
+        System.out.println(isValid("()"));      // true
+        System.out.println(isValid("()[]{}"));  // true
+        System.out.println(isValid("(]"));     // false
+        System.out.println(isValid("([)]"));   // false
+        System.out.println(isValid("{[]}"));    // true
+    }
+}
+

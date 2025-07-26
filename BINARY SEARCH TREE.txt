@@ -1,0 +1,425 @@
+ #BST IN JAVA WITH INSERTION AND VISUALIZATION:
+
+public class Main {
+   
+    static class TreeNode {
+        int val;
+        TreeNode left, right;
+       
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+   
+    static class BST {
+        TreeNode root;
+       
+        void insert(int val) {
+            root = insertRec(root, val);
+        }
+       
+        TreeNode insertRec(TreeNode node, int val) {
+            if (node == null) return new TreeNode(val);
+           
+            if (val < node.val)
+                node.left = insertRec(node.left, val);
+            else if (val > node.val)
+                node.right = insertRec(node.right, val);
+               
+            return node;
+        }
+       
+        void printTree() {
+            printTree(root, 0);
+        }
+       
+        void printTree(TreeNode node, int space) {
+            if (node == null) return;
+           
+            space += 10;
+            printTree(node.right, space);
+           
+            System.out.println();
+            for (int i = 10; i < space; i++)
+                System.out.print(" ");
+            System.out.println(node.val);
+           
+            printTree(node.left, space);
+        }
+    }
+   
+    public static void main(String[] args) {
+        BST tree = new BST();
+       
+        // Insert values
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+       
+        System.out.println("Binary Search Tree:");
+        tree.printTree();
+    }
+}
+
+# BST IN VERTICAL ORDER:
+
+import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Map;
+
+public class Main {
+   
+    static class TreeNode {
+        int val;
+        TreeNode left, right;
+       
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+   
+    static class BST {
+        TreeNode root;
+       
+        void insert(int val) {
+            root = insertRec(root, val);
+        }
+       
+        TreeNode insertRec(TreeNode node, int val) {
+            if (node == null) return new TreeNode(val);
+           
+            if (val < node.val)
+                node.left = insertRec(node.left, val);
+            else if (val > node.val)
+                node.right = insertRec(node.right, val);
+               
+            return node;
+        }
+        
+        // Method to print tree in vertical order
+        void printVerticalOrder() {
+            // TreeMap to store nodes sorted by horizontal distance
+            TreeMap<Integer, ArrayList<Integer>> map = new TreeMap<>();
+            getVerticalOrder(root, 0, map);
+            
+            // Print the map
+            for (Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()) {
+                System.out.println(entry.getValue());
+            }
+        }
+        
+        void getVerticalOrder(TreeNode node, int hd, TreeMap<Integer, ArrayList<Integer>> map) {
+            if (node == null) return;
+            
+            // Add current node to map
+            ArrayList<Integer> list = map.get(hd);
+            if (list == null) {
+                list = new ArrayList<>();
+                list.add(node.val);
+                map.put(hd, list);
+            } else {
+                list.add(node.val);
+            }
+            
+            // Process left and right subtrees
+            getVerticalOrder(node.left, hd - 1, map);
+            getVerticalOrder(node.right, hd + 1, map);
+        }
+    }
+   
+    public static void main(String[] args) {
+        BST tree = new BST();
+       
+        // Insert values
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+       
+        System.out.println("Binary Search Tree in Vertical Order:");
+        tree.printVerticalOrder();
+    }
+}
+
+#COUNT LEAF:
+
+public class BSTLeafCounter {
+   
+    static class TreeNode {
+        int val;
+        TreeNode left, right;
+       
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+   
+    static class BST {
+        TreeNode root;
+       
+        // Insert a new node
+        void insert(int val) {
+            root = insertRec(root, val);
+        }
+       
+        private TreeNode insertRec(TreeNode node, int val) {
+            if (node == null) return new TreeNode(val);
+           
+            if (val < node.val)
+                node.left = insertRec(node.left, val);
+            else if (val > node.val)
+                node.right = insertRec(node.right, val);
+               
+            return node;
+        }
+       
+        // Count leaves using recursion
+        int countLeaves() {
+            return countLeavesRec(root);
+        }
+       
+        private int countLeavesRec(TreeNode node) {
+            if (node == null) return 0;
+            if (node.left == null && node.right == null) return 1;
+            return countLeavesRec(node.left) + countLeavesRec(node.right);
+        }
+       
+        // Visual tree printing
+        void printTree() {
+            System.out.println("BST Structure:");
+            printTree(root, 0);
+        }
+       
+        private void printTree(TreeNode node, int space) {
+            if (node == null) return;
+           
+            space += 4;
+            printTree(node.right, space);
+           
+            System.out.println();
+            for (int i = 4; i < space; i++) System.out.print(" ");
+            System.out.println(node.val);
+           
+            printTree(node.left, space);
+        }
+    }
+   
+    public static void main(String[] args) {
+        BST tree = new BST();
+     
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+       
+        tree.printTree();
+        System.out.println("\nNumber of leaf nodes: " + tree.countLeaves());
+    }
+}
+
+#RANGE SUM OF BST:
+
+class Solution {
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        if (root == null) {
+            return 0;
+        }
+        int sum = 0;
+
+        if (root.val >= low && root.val <= high) {
+            sum += root.val;
+        }
+
+        if (root.val > low) {
+            sum += rangeSumBST(root.left, low, high);
+        }
+
+        if (root.val < high) {
+            sum += rangeSumBST(root.right, low, high);
+        }
+        return sum;
+    }
+}
+
+
+#SUM OF ALL NODES:
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int val) {
+        this.val = val;
+        left = right = null;
+    }
+}
+public class Main {
+    public int sumOfNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return root.val + sumOfNodes(root.left) + sumOfNodes(root.right);
+    }
+    public static void main(String[] args) {
+        Main tree = new Main();
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        int sum = tree.sumOfNodes(root);
+        System.out.println("Sum of all node values: " + sum);  // Output: 15
+    }
+}
+
+
+#MAX DEPTH OF BINARY TREE:
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int val) {
+        this.val = val;
+        left = right = null;
+    }
+}
+public class Main {
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0; 
+        }
+      
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+    public static void main(String[] args) {
+        Main tree = new Main();
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        int depth = tree.maxDepth(root);
+        System.out.println("Maximum depth of the binary tree is: " + depth); 
+    }
+}
+
+#INORDER, PREORDER AND POSTORDER TRAVERSAL IN BST:
+
+class Node {
+    int key;
+    Node left, right;
+
+    public Node(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+public class Main {
+    Node root;
+    void inorder(Node node) {
+        if (node == null)
+            return;
+        inorder(node.left);
+        System.out.print(node.key + " ");
+        inorder(node.right);
+    }
+    void preorder(Node node) {
+        if (node == null)
+            return;
+        System.out.print(node.key + " ");
+        preorder(node.left);
+        preorder(node.right);
+    }
+    void postorder(Node node) {
+        if (node == null)
+            return;
+        postorder(node.left);
+        postorder(node.right);
+        System.out.print(node.key + " ");
+    }
+
+    public static void main(String[] args) {
+        Main tree = new Main();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+
+        System.out.print("Preorder traversal: ");
+        tree.preorder(tree.root);
+
+        System.out.print("\nInorder traversal: ");
+        tree.inorder(tree.root);
+
+        System.out.print("\nPostorder traversal: ");
+        tree.postorder(tree.root);
+    }
+}
+
+
+#ISBALANCED:
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int val) {
+        this.val = val;
+        left = right = null;
+    }
+}
+public class Main {
+    private static int checkHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = checkHeight(root.left);
+        if (leftHeight == -1) return -1;  
+
+        int rightHeight = checkHeight(root.right);
+        if (rightHeight == -1) return -1; 
+
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1;  
+        }
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+    public static boolean isBalanced(TreeNode root) {
+        return checkHeight(root) != -1;
+    }
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        boolean balanced = isBalanced(root);
+        System.out.println("Is the tree balanced? " + balanced);  
+        TreeNode unbalancedRoot = new TreeNode(1);
+        unbalancedRoot.left = new TreeNode(2);
+        unbalancedRoot.left.left = new TreeNode(3);
+        System.out.println("Is the tree balanced? " + isBalanced(unbalancedRoot));  
+    }
+}
+
+
+
+
+
+
+
+
+

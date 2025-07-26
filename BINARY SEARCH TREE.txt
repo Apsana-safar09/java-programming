@@ -415,6 +415,63 @@ public class Main {
     }
 }
 
+#MIRROR TREE:
+
+// Definition for a binary tree node.
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int val) {
+        this.val = val;
+        left = right = null;
+    }
+}
+
+public class Main {
+
+    // Function to convert a tree to its mirror
+    public static void mirror(TreeNode root) {
+        if (root == null) return;
+
+        // Swap the left and right subtrees
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        // Recursively mirror the left and right subtrees
+        mirror(root.left);
+        mirror(root.right);
+    }
+
+    // Helper method to print tree in-order for testing
+    public static void inorder(TreeNode root) {
+        if (root == null) return;
+        inorder(root.left);
+        System.out.print(root.val + " ");
+        inorder(root.right);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        System.out.println("Inorder traversal of original tree:");
+        inorder(root);
+        System.out.println();
+
+        mirror(root);
+        System.out.println("Inorder traversal of mirrored tree:");
+        inorder(root);
+        System.out.println();
+    }
+}
+
+
+
 
 
 
